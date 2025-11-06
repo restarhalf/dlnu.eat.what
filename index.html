@@ -173,6 +173,30 @@
             cursor: pointer;
             user-select: none;
         }
+        .chidianhaode{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #cccccc;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        body.light-mode .chidianhaode {
+            color: #333;
+        }
+
+        .chidianhaode input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #0e639c;
+        }
+
+        .chidianhaode label {
+            cursor: pointer;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
@@ -184,6 +208,10 @@
             <input type="checkbox" id="myCheckbox">
             <label for="myCheckbox">中晚第一节有课</label>
         </div>
+        <div class="chidianhaode">
+            <input type="checkbox" id="haode">
+            <label for="haode">我想吃点好的</label>
+        </div>
     </div>
 
     <script>
@@ -193,6 +221,10 @@
             const checkbox = document.getElementById('myCheckbox');
             return checkbox.checked;
         }
+        function gethaode(){
+            const checkbox = document.getElementById('haode');
+            return checkbox.checked;
+        }
 
         function randomFood() {
             if (isAnimating) return;
@@ -200,13 +232,21 @@
 
             const resultElement = document.getElementById('result');
             const checkboxValue = getCheckboxValue();
-            
-            
+            const haodeValue = gethaode();
             let foods;
-            if (checkboxValue) {
+            if(checkboxValue && haodeValue){
+                foods = [
+                    '想的倒挺美'
+                ];
+            } 
+            else if (checkboxValue) {
                 foods = [
                     '石板','七分饱','张亮麻辣烫','干锅外卖','町上寿司','莫斯汉堡','kfc','金拱门','炸鸡','吉祥馄饨','牛培堡','必胜客','炸鸡',
                     '小红帽','杂酱面','苏龙龙','0090','铁板小炒','煮馍','螺狮粉','冒菜','麻辣香锅','南区自选','学府面馆','清真炒鸡'
+                ];
+            } else if(haodeValue){
+                foods = [
+                    'hpc','bbq','嘎巴锅','佰兴大肘子','烤鱼','火锅','苏龙龙水煮肉片'
                 ];
             } else {
                 foods = [
@@ -214,15 +254,13 @@
                     '小红帽','杂酱面','苏龙龙','0090','铁板小炒','煮馍','螺狮粉','冒菜','麻辣香锅','南区自选','学府面馆','清真炒鸡'
                 ];
             }
-            
+    
             resultElement.classList.add('animating');
-            
             let counter = 0;
             const interval = setInterval(() => {
                 const randomIndex = Math.floor(Math.random() * foods.length);
                 resultElement.textContent = foods[randomIndex];
                 counter++;
-                
                 if (counter >= 10) {
                     clearInterval(interval);
                     const finalIndex = Math.floor(Math.random() * foods.length);
@@ -235,21 +273,19 @@
                 }
             }, 80);
         }
-
         function toggleTheme() {
             const body = document.body;
             const themeBtn = document.querySelector('.theme-toggle');
             body.classList.toggle('light-mode');
             
             if (body.classList.contains('light-mode')) {
-                themeBtn.textContent = '☀️';
+                themeBtn.textContent = '🌙';
                 localStorage.setItem('theme', 'light');
             } else {
-                themeBtn.textContent = '🌙';
+                themeBtn.textContent = '☀️';
                 localStorage.setItem('theme', 'dark');
             }
         }
-
         window.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme');
             const body = document.body;
@@ -257,17 +293,14 @@
             
             if (savedTheme === 'light') {
                 body.classList.add('light-mode');
-                themeBtn.textContent = '☀️';
-            } else {
                 themeBtn.textContent = '🌙';
+            } else {
+                themeBtn.textContent = '☀️';
             }
         });
-
         document.getElementById('myCheckbox').addEventListener('change', function() {
             const checkboxValue = this.checked;
-            console.log('复选框变化:', checkboxValue);
         });
-
         document.addEventListener('keydown', function(event) {
             if (event.code === 'Space') {
                 event.preventDefault();
@@ -277,7 +310,3 @@
     </script>
 </body>
 </html>
-
-
-
-
