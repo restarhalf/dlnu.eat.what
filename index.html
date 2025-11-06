@@ -199,12 +199,9 @@
             isAnimating = true;
 
             const resultElement = document.getElementById('result');
-            
-            // 获取复选框的值（true/false）
             const checkboxValue = getCheckboxValue();
-            console.log('复选框状态:', checkboxValue);
             
-            // 根据复选框状态选择不同的食物列表
+            
             let foods;
             if (checkboxValue) {
                 foods = [
@@ -218,10 +215,8 @@
                 ];
             }
             
-            // 添加动画
             resultElement.classList.add('animating');
             
-            // 快速切换显示效果
             let counter = 0;
             const interval = setInterval(() => {
                 const randomIndex = Math.floor(Math.random() * foods.length);
@@ -230,7 +225,6 @@
                 
                 if (counter >= 10) {
                     clearInterval(interval);
-                    // 最终结果
                     const finalIndex = Math.floor(Math.random() * foods.length);
                     resultElement.textContent = foods[finalIndex];
                     
@@ -242,7 +236,6 @@
             }, 80);
         }
 
-        // 主题切换功能
         function toggleTheme() {
             const body = document.body;
             const themeBtn = document.querySelector('.theme-toggle');
@@ -257,7 +250,6 @@
             }
         }
 
-        // 页面加载时恢复主题设置
         window.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme');
             const body = document.body;
@@ -271,13 +263,11 @@
             }
         });
 
-        // 监听复选框变化
         document.getElementById('myCheckbox').addEventListener('change', function() {
             const checkboxValue = this.checked;
             console.log('复选框变化:', checkboxValue);
         });
 
-        // 添加键盘事件，按空格键也可以随机
         document.addEventListener('keydown', function(event) {
             if (event.code === 'Space') {
                 event.preventDefault();
@@ -287,6 +277,7 @@
     </script>
 </body>
 </html>
+
 
 
 
