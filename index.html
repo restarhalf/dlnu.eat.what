@@ -249,10 +249,10 @@
             body.classList.toggle('light-mode');
             
             if (body.classList.contains('light-mode')) {
-                themeBtn.textContent = '🌙';
+                themeBtn.textContent = '☀️';
                 localStorage.setItem('theme', 'light');
             } else {
-                themeBtn.textContent = '☀️';
+                themeBtn.textContent = '🌙';
                 localStorage.setItem('theme', 'dark');
             }
         }
@@ -265,9 +265,9 @@
             
             if (savedTheme === 'light') {
                 body.classList.add('light-mode');
-                themeBtn.textContent = '🌙';
-            } else {
                 themeBtn.textContent = '☀️';
+            } else {
+                themeBtn.textContent = '🌙';
             }
         });
 
@@ -287,3 +287,4 @@
     </script>
 </body>
 </html>
+
