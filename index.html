@@ -173,6 +173,7 @@
             cursor: pointer;
             user-select: none;
         }
+
         .chidianhaode{
             display: flex;
             align-items: center;
@@ -197,6 +198,31 @@
             cursor: pointer;
             user-select: none;
         }
+
+        .buchishitang{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #cccccc;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        body.light-mode .buchishitang {
+            color: #333;
+        }
+
+        .buchishitang input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #0e639c;
+        }
+
+        .buchishitang label {
+            cursor: pointer;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
@@ -205,24 +231,32 @@
         <div class="result" id="result">点击按钮开始</div>
         <button class="random-btn" onclick="randomFood()">这顿吃什么</button>
         <div class="checkbox-container">
-            <input type="checkbox" id="myCheckbox">
-            <label for="myCheckbox">中晚第一节有课</label>
+            <input type="checkbox" id="youke">
+            <label for="youke">中晚第一节有课</label>
         </div>
         <div class="chidianhaode">
             <input type="checkbox" id="haode">
-            <label for="haode">我想吃点好的</label>
+            <label for="haode">想吃点好的</label>
+        </div>
+        <div class="buchishitang">
+            <input type="checkbox" id="shitang">
+            <label for="shitang">不想吃食堂</label>
         </div>
     </div>
 
     <script>
         let isAnimating = false;
 
-        function getCheckboxValue() {
-            const checkbox = document.getElementById('myCheckbox');
+        function getyouke() {
+            const checkbox = document.getElementById('youke');
             return checkbox.checked;
         }
         function gethaode(){
             const checkbox = document.getElementById('haode');
+            return checkbox.checked;
+        }
+        function getshitang(){
+            const checkbox = document.getElementById('shitang');
             return checkbox.checked;
         }
 
@@ -231,24 +265,46 @@
             isAnimating = true;
 
             const resultElement = document.getElementById('result');
-            const checkboxValue = getCheckboxValue();
+            const youkeValue = getyouke();
             const haodeValue = gethaode();
+            const shitangValue = getshitang();
             let foods;
-            if(checkboxValue && haodeValue){
+            if(youkeValue && haodeValue){
                 foods = [
                     '想的倒挺美'
                 ];
-            } 
-            else if (checkboxValue) {
+            }
+            else if(!shitangValue && haodeValue)
+            {
+                foods=[
+                    'hpc','bbq','嘎巴锅','佰兴大肘子','烤鱼','火锅','苏龙龙水煮肉片'
+                ];
+            }
+             
+            else if (youkeValue && !shitangValue) {
                 foods = [
                     '石板','七分饱','张亮麻辣烫','干锅外卖','町上寿司','莫斯汉堡','kfc','金拱门','炸鸡','吉祥馄饨','牛培堡','必胜客','炸鸡',
                     '小红帽','杂酱面','苏龙龙','0090','铁板小炒','煮馍','螺狮粉','冒菜','麻辣香锅','南区自选','学府面馆','清真炒鸡'
                 ];
-            } else if(haodeValue){
+            } 
+            else if(youkeValue && shitangValue){
                 foods = [
-                    'hpc','bbq','嘎巴锅','佰兴大肘子','烤鱼','火锅','苏龙龙水煮肉片'
+                    '石板','七分饱','张亮麻辣烫','干锅外卖','町上寿司','莫斯汉堡','kfc','金拱门','炸鸡','吉祥馄饨','牛培堡','必胜客','炸鸡',
                 ];
-            } else {
+            }
+            else if(haodeValue && shitangValue){
+                foods = [
+                    'hpc','bbq','嘎巴锅','佰兴大肘子','烤鱼','火锅'
+                ];
+            } 
+            else if(shitangValue)
+            {
+                foods = [
+                    'hpc','bbq','嘎巴锅','佰兴大肘子','烤鱼','火锅','石板','七分饱','张亮麻辣烫','干锅外卖','町上寿司','莫斯汉堡','kfc','金拱门','炸鸡','吉祥馄饨','牛培堡','必胜客','炸鸡',
+                '冒菜','麻辣香锅'];
+
+            }
+            else {
                 foods = [
                     'hpc','bbq','嘎巴锅','佰兴大肘子','烤鱼','火锅','苏龙龙水煮肉片','石板','七分饱','张亮麻辣烫','干锅外卖','町上寿司','莫斯汉堡','kfc','金拱门','炸鸡','吉祥馄饨','牛培堡','必胜客','炸鸡',
                     '小红帽','杂酱面','苏龙龙','0090','铁板小炒','煮馍','螺狮粉','冒菜','麻辣香锅','南区自选','学府面馆','清真炒鸡'
